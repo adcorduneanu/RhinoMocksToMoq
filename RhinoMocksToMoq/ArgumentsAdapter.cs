@@ -6,6 +6,24 @@
     using System.Reflection;
     using Moq;
 
+    public static class Arg<T>
+    {
+        public static IsArg Is => new IsArg();
+
+        public static T Matches(Expression<Func<T, bool>> predicate) => It.Is(predicate);
+
+        public class IsArg
+        {
+            public T Anything => It.IsAny<T>();
+
+            public T NotNull => It.IsNotNull<T>();
+
+            public T Null => It.Is<T>(x => x == null);
+
+            public T Equal(T input) => It.Is<T>(x => x.Equals(input));
+        }
+    }
+
     internal class ArgumentsAdapter
     {
         private static readonly MethodInfo isAnyMethod = typeof(It).GetMethod(nameof(It.IsAny), BindingFlags.Public | BindingFlags.Static);
@@ -24,30 +42,12 @@
         }
     }
 
-    public static class Arg<T>
-    {
-        public static IsArg Is => new IsArg();
-
-        public static T Matches(Expression<Func<T, bool>> predicate) => It.Is(predicate);
-
-        public class IsArg
-        {
-            public T Anything => It.IsAny<T>();
-
-            public T Null => It.Is<T>(x => x == null);
-
-            public T NotNull => It.IsNotNull<T>();
-
-            public T Equal(T input) => It.Is<T>(x => x.Equals(input));
-        }
-    }
-
     internal sealed class ArgumentsAdapter<T, TR> : ArgumentsAdapter where T : class
     {
         public Expression<Func<T, TR>> IgnoreArguments(Expression<Func<T, TR>> expression)
         {
             return expression.Update(this.IgnoreArgumentsExpression((MethodCallExpression)expression.Body), expression.Parameters);
-        }    
+        }  
     }
 
     internal class ArgumentsAdapter<T> : ArgumentsAdapter where T : class
