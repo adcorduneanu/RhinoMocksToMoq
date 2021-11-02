@@ -40,9 +40,9 @@
         IExpect<T, TR> Times(int count);
     }
 
-    public class Repeat<T, TR> : IRepeat<T, TR> where T : class
+    public sealed class Repeat<T, TR> : IRepeat<T, TR> where T : class
     {
-        private readonly IExpect<T, TR> _expect;
+        private readonly IExpect<T, TR> expect;
         
         public int ExactCount { get; private set; }
 
@@ -50,50 +50,50 @@
 
         public Repeat(IExpect<T, TR> expect)
         {
-            _expect = expect;
+            this.expect = expect;
         }
 
         public IExpect<T, TR> Any()
         {
             Type = RepeatType.Any;
-            return _expect.SetupWithMoq();
+            return this.expect.SetupWithMoq();
         }
 
         public IExpect<T, TR> Once()
         {
             Type = RepeatType.Once;
-            return _expect.SetupWithMoq();
+            return this.expect.SetupWithMoq();
         }
 
         public IExpect<T, TR> Twice()
         {
             Type = RepeatType.Twice;
-            return _expect.SetupWithMoq();
+            return this.expect.SetupWithMoq();
         }
 
         public IExpect<T, TR> AtLeastOnce()
         {
             Type = RepeatType.AtLeastOnce;
-            return _expect.SetupWithMoq();
+            return this.expect.SetupWithMoq();
         }
 
         public IExpect<T, TR> Never()
         {
             Type = RepeatType.Never;
-            return _expect.SetupWithMoq();
+            return this.expect.SetupWithMoq();
         }
 
         public IExpect<T, TR> Times(int count)
         {
             Type = RepeatType.Exact;
             ExactCount = count;
-            return _expect.SetupWithMoq();
+            return this.expect.SetupWithMoq();
         }
     }
 
-    public class Repeat<T> : IRepeat<T> where T : class
+    public sealed class Repeat<T> : IRepeat<T> where T : class
     {
-        private readonly IExpect<T> _expect;
+        private readonly IExpect<T> expect;
 
         public int ExactCount { get; private set; }
 
@@ -101,44 +101,50 @@
 
         public Repeat(IExpect<T> expect)
         {
-            _expect = expect;
+            this.expect = expect;
         }
 
         public IExpect<T> Once()
         {
             Type = RepeatType.Once;
-            return _expect.SetupWithMoq();
+
+            return this.expect.SetupWithMoq();
         }
 
         public IExpect<T> Twice()
         {
             Type = RepeatType.Twice;
-            return _expect.SetupWithMoq();
+
+            return this.expect.SetupWithMoq();
         }
 
         public IExpect<T> Any()
         {
             Type = RepeatType.Any;
-            return _expect.SetupWithMoq();
+
+            return this.expect.SetupWithMoq();
         }
 
         public IExpect<T> AtLeastOnce()
         {
             Type = RepeatType.AtLeastOnce;
-            return _expect.SetupWithMoq();
+
+            return this.expect.SetupWithMoq();
         }
 
         public IExpect<T> Never()
         {
             Type = RepeatType.Never;
-            return _expect.SetupWithMoq();
+
+            return this.expect.SetupWithMoq();
         }
 
         public IExpect<T> Times(int count)
         {
             Type = RepeatType.Exact;
             ExactCount = count;
-            return _expect.SetupWithMoq();
+
+            return this.expect.SetupWithMoq();
         }
     }
 }

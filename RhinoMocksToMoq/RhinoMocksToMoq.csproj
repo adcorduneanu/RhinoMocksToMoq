@@ -2,11 +2,13 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <Authors>Minh Nguyen</Authors>
+    <Authors></Authors>
     <Description>Extensions to quickly migrate old Rhino Mocks to Moq</Description>
-    <PackageProjectUrl>https://www.nuget.org/packages/RhinoMocksToMoq/</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/minhhut/rhino-to-moq</RepositoryUrl>
-    <PackageTags>rhino moq adapter</PackageTags>
+    <PackageProjectUrl></PackageProjectUrl>
+    <RepositoryUrl></RepositoryUrl>
+    <PackageTags></PackageTags>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Company />
   </PropertyGroup>
 
   <ItemGroup>

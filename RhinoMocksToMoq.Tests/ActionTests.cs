@@ -1,9 +1,9 @@
-﻿using Xunit;
-using Rhino.Mocks;
-
-namespace RhinoMocksToMoq.Tests
+﻿namespace RhinoMocksToMoq.Tests
 {
-    public class ActionTests
+    using Xunit;
+    using Rhino.Mocks;
+
+    public sealed class ActionTests
     {
         [Fact]
         public void Once()

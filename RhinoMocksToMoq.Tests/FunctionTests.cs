@@ -1,9 +1,9 @@
-﻿using Xunit;
-using Rhino.Mocks;
-
-namespace RhinoMocksToMoq.Tests
+﻿namespace RhinoMocksToMoq.Tests
 {
-    public class FunctionTests
+    using Xunit;
+    using Rhino.Mocks;
+
+    public sealed class FunctionTests
     {
         [Fact]
         public void Method()
@@ -150,6 +150,74 @@ namespace RhinoMocksToMoq.Tests
             Assert.Equal(4, calculator.Add(0, 3));
 
             calculator.VerifyAllExpectations();
-        }        
+        }
+
+        [Fact]
+        public void ArgsMatchers()
+        {
+            var calculator = MockRepository.GenerateMock<ICalculator>();
+            calculator.Expect(cal => cal.Add(Arg<int>.Matches(x=>x>2), Arg<int>.Is.Equal(2)))
+                .ReturnInOrder(new int[] { 1, 2, 3, 4 });
+
+            var calculatorService = new CalculatorService(calculator);
+
+            Assert.Equal(1, calculator.Add(4, 2));
+            Assert.Equal(2, calculator.Add(3, 2));
+            Assert.Equal(0, calculator.Add(5, 1));
+            Assert.Equal(0, calculator.Add(0, 2));
+
+            calculator.VerifyAllExpectations();
+        }
+
+        [Fact]
+        public void ArgsIsAnything()
+        {
+            var calculator = MockRepository.GenerateMock<ICalculator>();
+            calculator.Expect(cal => cal.Add(Arg<int>.Matches(x => x > 2), Arg<int>.Is.Anything))
+                .ReturnInOrder(new int[] { 1, 2, 3, 4 });
+
+            var calculatorService = new CalculatorService(calculator);
+
+            Assert.Equal(1, calculator.Add(4, -1));
+            Assert.Equal(2, calculator.Add(3, 2));
+            Assert.Equal(3, calculator.Add(5, default));
+
+            calculator.VerifyAllExpectations();
+        }
+
+        [Fact]
+        public void ArgsIsNotNull()
+        {
+            var calculator = MockRepository.GenerateMock<ICalculator>();
+            calculator.Expect(cal => cal.Add(Arg<int>.Is.NotNull, 2))
+                .ReturnInOrder(new int[] { 1, 2, 3, 4 });
+
+            var calculatorService = new CalculatorService(calculator);
+
+            Assert.Equal(1, calculator.Add(1, 2));
+            Assert.Equal(2, calculator.Add(2, 2));
+            Assert.Equal(0, calculator.Add(null, 2));
+            Assert.Equal(3, calculator.Add(3, 2));
+
+            calculator.VerifyAllExpectations();
+        }
+
+        [Fact]
+        public void ArgsIsNull()
+        {
+            var calculator = MockRepository.GenerateMock<ICalculator>();
+            calculator.Expect(cal => cal.Add(Arg<int?>.Is.Null, 2))
+                .ReturnInOrder(new int[] { 1, 2, 3, 4 });
+
+            var calculatorService = new CalculatorService(calculator);
+
+            Assert.Equal(0, calculator.Add(1, 2));
+            Assert.Equal(1, calculator.Add(null, 2));
+            Assert.Equal(2, calculator.Add(null, 2));
+            Assert.Equal(0, calculator.Add(3, 2));
+            Assert.Equal(0, calculator.Add(null, 3));
+
+            calculator.VerifyAllExpectations();
+        }
     }
 }
