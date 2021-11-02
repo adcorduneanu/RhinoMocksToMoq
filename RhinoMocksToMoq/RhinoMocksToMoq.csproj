@@ -3,16 +3,13 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <Authors></Authors>
-    <Description>Extensions to quickly migrate old Rhino Mocks to Moq</Description>
-    <PackageProjectUrl></PackageProjectUrl>
-    <RepositoryUrl></RepositoryUrl>
-    <PackageTags></PackageTags>
+    <Description>RhinoMocks to Moq Adapter</Description>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Company />
+	<Version>1.0.1</Version>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Moq" Version="4.13.1" />
+    <PackageReference Include="Moq" Version="4.16.1" />
   </ItemGroup>
 
 </Project>
