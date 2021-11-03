@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26124.0
 MinimumVisualStudioVersion = 15.0.26124.0
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RhinoMocksToMoq", "RhinoMocksToMoq\RhinoMocksToMoq.csproj", "{8F5F866F-4880-4A1B-8DC5-4A73129DE74A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RhinoMocks2Moq", "RhinoMocks2Moq\RhinoMocks2Moq.csproj", "{8F5F866F-4880-4A1B-8DC5-4A73129DE74A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RhinoMocksToMoq.Tests", "RhinoMocksToMoq.Tests\RhinoMocksToMoq.Tests.csproj", "{FA2D1158-DF91-4D0E-A874-A333FD210A26}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RhinoMocks2Moq.Tests", "RhinoMocks2Moq.Tests\RhinoMocks2Moq.Tests.csproj", "{FA2D1158-DF91-4D0E-A874-A333FD210A26}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

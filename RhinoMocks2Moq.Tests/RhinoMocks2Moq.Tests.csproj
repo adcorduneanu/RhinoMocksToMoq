@@ -20,7 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\RhinoMocksToMoq\RhinoMocksToMoq.csproj" />
+    <ProjectReference Include="..\RhinoMocks2Moq\RhinoMocks2Moq.csproj" />
   </ItemGroup>
 
 </Project>

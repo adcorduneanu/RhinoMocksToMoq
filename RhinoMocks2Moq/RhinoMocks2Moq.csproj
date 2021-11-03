@@ -1,9 +1,9 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <Authors></Authors>
-    <Description>RhinoMocks to Moq Adapter</Description>
+    <Description>RhinoMocks2Moq Adapter</Description>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 	<Version>1.0.1</Version>
   </PropertyGroup>
