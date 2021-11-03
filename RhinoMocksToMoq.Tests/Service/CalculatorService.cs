@@ -1,5 +1,6 @@
 ﻿namespace RhinoMocksToMoq
 {
+    using System.Collections.Generic;
     using System.Diagnostics;
 
     internal sealed class CalculatorService : ICalculator
@@ -29,6 +30,11 @@
         public void Output(int a, int b)
         {
             Trace.WriteLine($"a: {a}, b: {b}");
+        }
+
+        public int SumAll(List<int> args)
+        {
+            return this.calculator.SumAll(args);
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace RhinoMocksToMoq
+﻿using System.Collections.Generic;
+
+namespace RhinoMocksToMoq
 {
     public interface ICalculator
     {
@@ -9,5 +11,7 @@
         int Random();
 
         void Output(int a, int b);
+
+        int SumAll(List<int> args);
     }
 }

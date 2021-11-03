@@ -1,6 +1,7 @@
 ﻿namespace Rhino.Mocks
 {
     using System;
+    using System.Collections;
     using System.Linq;
     using System.Linq.Expressions;
     using System.Reflection;
@@ -8,19 +9,53 @@
 
     public static class Arg<T>
     {
-        public static IsArg Is => new IsArg();
+        public static IsArg<T> Is => new IsArg<T>();
 
         public static T Matches(Expression<Func<T, bool>> predicate) => It.Is(predicate);
 
-        public class IsArg
+        public static ListArg<T> List => new ListArg<T>();
+
+        public sealed class IsArg<TR>
         {
-            public T Anything => It.IsAny<T>();
+            public TR Anything => It.IsAny<TR>();
 
-            public T NotNull => It.IsNotNull<T>();
+            public TR NotNull => It.IsNotNull<TR>();
 
-            public T Null => It.Is<T>(x => x == null);
+            public TR Null => It.Is<TR>(x => x == null);
 
-            public T Equal(T input) => It.Is<T>(x => x.Equals(input));
+            public TR Equal(TR input) => It.Is<TR>(x => x.Equals(input));
+        }
+
+        public sealed class ListArg<TR> 
+        {
+            private readonly ArrayList missing = new ArrayList();
+
+            private bool Contains(IEnumerable searchableCollection, IEnumerable searchCollection)
+            {
+                    foreach (object outer in searchCollection)
+                    {
+                        bool foundThis = false;
+                        foreach (object inner in searchableCollection)
+                        {
+                            if (inner.Equals(outer))
+                            {
+                                foundThis = true;
+                                break;
+                            }
+                        }
+                        if (!foundThis && !missing.Contains(outer))
+                        {
+                            missing.Add(outer);
+                        }
+                    }
+
+                    return missing.Count == 0;
+            }
+
+            public TR ContainsAll<TR>(TR collection) where TR : IEnumerable
+            {
+                return It.Is<TR>(x => Contains(x, collection));
+            }
         }
     }
 
