@@ -1,11 +1,10 @@
 ﻿namespace Rhino.Mocks
 {
-    using System;
-    using System.Linq.Expressions;
-    using Moq;
-    using RhinoMocksToMoq;
+	using System;
+	using System.Linq.Expressions;
+	using Moq;
 
-    internal class MoqAdapter<T, TR> where T : class
+	internal class MoqAdapter<T, TR> where T : class
     {
         private readonly Mock<T> mock;
         private Expression<Func<T, TR>> expression;

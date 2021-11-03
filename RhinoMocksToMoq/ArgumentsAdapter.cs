@@ -1,4 +1,4 @@
-﻿namespace RhinoMocksToMoq
+﻿namespace Rhino.Mocks
 {
     using System;
     using System.Linq;
