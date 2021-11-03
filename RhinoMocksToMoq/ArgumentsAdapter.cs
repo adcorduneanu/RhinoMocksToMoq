@@ -52,9 +52,9 @@
                     return missing.Count == 0;
             }
 
-            public TR ContainsAll<TR>(TR collection) where TR : IEnumerable
+            public TX ContainsAll<TX>(TX collection) where TX : IEnumerable, TR
             {
-                return It.Is<TR>(x => Contains(x, collection));
+                return It.Is<TX>(x => Contains(x, collection));
             }
         }
     }

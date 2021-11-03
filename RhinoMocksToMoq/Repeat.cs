@@ -1,5 +1,7 @@
 ﻿namespace Rhino.Mocks
 {
+    using MoqTimes = Moq.Times;
+
     public enum RepeatType
     {
         Any,
@@ -43,7 +45,7 @@
     public sealed class Repeat<T, TR> : IRepeat<T, TR> where T : class
     {
         private readonly IExpect<T, TR> expect;
-        
+
         public int ExactCount { get; private set; }
 
         public RepeatType Type { get; private set; }
@@ -145,6 +147,24 @@
             ExactCount = count;
 
             return this.expect.SetupWithMoq();
+        }
+    }
+
+    public sealed class RepeatAdapter
+    {
+        public RepeatArg Repeat => new RepeatArg();
+
+        public sealed class RepeatArg
+        {
+            public MoqTimes Once() => MoqTimes.Once();
+
+            public MoqTimes Twice() => MoqTimes.Exactly(2);
+
+            public MoqTimes AtLeastOnce() => MoqTimes.AtLeastOnce();
+
+            public MoqTimes Never() => MoqTimes.Never();
+
+            public MoqTimes Times(int count) => MoqTimes.Exactly(count);
         }
     }
 }

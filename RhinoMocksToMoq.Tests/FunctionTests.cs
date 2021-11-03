@@ -85,7 +85,7 @@
             }
             else
             {
-                calculator.VerifyAllExpectations();                
+                calculator.VerifyAllExpectations();
             }
         }
 
@@ -97,7 +97,7 @@
 
             var calculatorService = new CalculatorService(calculator);
 
-            calculator.VerifyAllExpectations();            
+            calculator.VerifyAllExpectations();
         }
 
         [Theory]
@@ -123,16 +123,16 @@
         public void ReturnInOrder()
         {
             var calculator = MockRepository.GenerateMock<ICalculator>();
-            calculator.Expect(cal => cal.Random()).ReturnInOrder(new int[] {1, 2, 3, 4});
+            calculator.Expect(cal => cal.Random()).ReturnInOrder(new int[] { 1, 2, 3, 4 });
 
             var calculatorService = new CalculatorService(calculator);
-            
+
             Assert.Equal(1, calculator.Random());
             Assert.Equal(2, calculator.Random());
             Assert.Equal(3, calculator.Random());
             Assert.Equal(4, calculator.Random());
-            
-            calculator.VerifyAllExpectations();                        
+
+            calculator.VerifyAllExpectations();
         }
 
         [Fact]
@@ -157,7 +157,7 @@
         public void ArgsMatchers()
         {
             var calculator = MockRepository.GenerateMock<ICalculator>();
-            calculator.Expect(cal => cal.Add(Arg<int>.Matches(x=>x>2), Arg<int>.Is.Equal(2)))
+            calculator.Expect(cal => cal.Add(Arg<int>.Matches(x => x > 2), Arg<int>.Is.Equal(2)))
                 .ReturnInOrder(new int[] { 1, 2, 3, 4 });
 
             var calculatorService = new CalculatorService(calculator);
@@ -231,11 +231,59 @@
 
             var calculatorService = new CalculatorService(calculator);
 
-            Assert.Equal(5, calculator.SumAll(new List<int> { 1,2,3}));
-            Assert.Equal(5, calculator.SumAll(new List<int> { 1, 2, 3,4 }));
+            Assert.Equal(5, calculator.SumAll(new List<int> { 1, 2, 3 }));
+            Assert.Equal(5, calculator.SumAll(new List<int> { 1, 2, 3, 4 }));
             Assert.Equal(0, calculator.SumAll(new List<int> { 1, 2, 4 }));
 
             calculator.VerifyAllExpectations();
+        }
+
+        [Fact]
+        public void AssertWasCalled()
+        {
+            var calculator = MockRepository.GenerateMock<ICalculator>();
+            calculator.Expect(cal => cal.SumAll(Arg<List<int>>.List.ContainsAll(new List<int> { 1, 2, 3 })))
+                .Return(5);
+
+            var calculatorService = new CalculatorService(calculator);
+
+            Assert.Equal(5, calculator.SumAll(new List<int> { 1, 2, 3 }));
+            Assert.Equal(5, calculator.SumAll(new List<int> { 1, 2, 3, 4 }));
+            Assert.Equal(0, calculator.SumAll(new List<int> { 1, 2, 4 }));
+
+            calculator.AssertWasCalled(x => x.SumAll(Arg<List<int>>.List.ContainsAll(new List<int> { 1, 2, 3 })));
+        }
+
+        [Fact]
+        public void AssertWasCalledTwice()
+        {
+            var calculator = MockRepository.GenerateMock<ICalculator>();
+            calculator.Expect(cal => cal.SumAll(Arg<List<int>>.List.ContainsAll(new List<int> { 1, 2, 3 })))
+                .Return(5);
+
+            var calculatorService = new CalculatorService(calculator);
+
+            Assert.Equal(5, calculator.SumAll(new List<int> { 1, 2, 3 }));
+            Assert.Equal(5, calculator.SumAll(new List<int> { 1, 2, 3, 4 }));
+            Assert.Equal(0, calculator.SumAll(new List<int> { 1, 2, 4 }));
+
+            calculator.AssertWasCalled(x => x.SumAll(Arg<List<int>>.List.ContainsAll(new List<int> { 1, 2, 3 })), x => x.Repeat.Twice());
+        }
+
+        [Fact]
+        public void AssertWasNotCalled()
+        {
+            var calculator = MockRepository.GenerateMock<ICalculator>();
+            calculator.Expect(cal => cal.SumAll(Arg<List<int>>.List.ContainsAll(new List<int> { 1, 2, 3 })))
+                .Return(5);
+
+            var calculatorService = new CalculatorService(calculator);
+
+            Assert.Equal(5, calculator.SumAll(new List<int> { 1, 2, 3 }));
+            Assert.Equal(5, calculator.SumAll(new List<int> { 1, 2, 3, 4 }));
+            Assert.Equal(0, calculator.SumAll(new List<int> { 1, 2, 4 }));
+
+            calculator.AssertWasNotCalled(x => x.SumAll(Arg<List<int>>.List.ContainsAll(new List<int> { 0, 1, 2 })));
         }
     }
 }

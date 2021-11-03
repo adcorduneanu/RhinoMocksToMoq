@@ -11,13 +11,15 @@
         void Throw(Exception exception);
 
         IExpect<T> SetupWithMoq();
-
+              
         IExpect<T> IgnoreArguments();
     }
 
     public interface IExpect<T, TR> where T : class
     {
         IRepeat<T, TR> Repeat { get; }
+
+        IExpect<T, TR> Do(TR result);
 
         IExpect<T, TR> Return(TR result);
 
@@ -78,6 +80,13 @@
         public IExpect<T, TR> IgnoreArguments()
         {
             this.moqAdapter.IgnoreArguments();
+
+            return this;
+        }
+
+        public IExpect<T, TR> Do(TR result)
+        {
+            this.Return(result);
 
             return this;
         }
