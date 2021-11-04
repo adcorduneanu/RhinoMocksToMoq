@@ -285,5 +285,20 @@
 
             calculator.AssertWasNotCalled(x => x.SumAll(Arg<List<int>>.List.ContainsAll(new List<int> { 0, 1, 2 })));
         }
+
+        [Fact]
+        public void ReturnNull ()
+        {
+	        var calculator = MockRepository.GenerateMock<ICalculator>();
+	        calculator.Expect(cal => cal.Add(Arg<int?>.Is.Anything, Arg<int>.Is.Anything))
+		        .Return(null);
+
+	        var calculatorService = new CalculatorService(calculator);
+
+	        Assert.Null(calculatorService.Add(2, 3));
+	        Assert.Null(calculatorService.Add(2, 3));
+
+            calculator.VerifyAllExpectations();
+        }
     }
 }

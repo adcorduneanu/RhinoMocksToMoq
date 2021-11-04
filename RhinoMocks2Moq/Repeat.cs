@@ -57,38 +57,38 @@
 
         public IExpect<T, TR> Any()
         {
-            Type = RepeatType.Any;
+			this.Type = RepeatType.Any;
             return this.expect.SetupWithMoq();
         }
 
         public IExpect<T, TR> Once()
         {
-            Type = RepeatType.Once;
+			this.Type = RepeatType.Once;
             return this.expect.SetupWithMoq();
         }
 
         public IExpect<T, TR> Twice()
         {
-            Type = RepeatType.Twice;
+			this.Type = RepeatType.Twice;
             return this.expect.SetupWithMoq();
         }
 
         public IExpect<T, TR> AtLeastOnce()
         {
-            Type = RepeatType.AtLeastOnce;
+			this.Type = RepeatType.AtLeastOnce;
             return this.expect.SetupWithMoq();
         }
 
         public IExpect<T, TR> Never()
         {
-            Type = RepeatType.Never;
+			this.Type = RepeatType.Never;
             return this.expect.SetupWithMoq();
         }
 
         public IExpect<T, TR> Times(int count)
         {
-            Type = RepeatType.Exact;
-            ExactCount = count;
+			this.Type = RepeatType.Exact;
+			this.ExactCount = count;
             return this.expect.SetupWithMoq();
         }
     }
@@ -108,43 +108,43 @@
 
         public IExpect<T> Once()
         {
-            Type = RepeatType.Once;
+			this.Type = RepeatType.Once;
 
             return this.expect.SetupWithMoq();
         }
 
         public IExpect<T> Twice()
         {
-            Type = RepeatType.Twice;
+			this.Type = RepeatType.Twice;
 
             return this.expect.SetupWithMoq();
         }
 
         public IExpect<T> Any()
         {
-            Type = RepeatType.Any;
+			this.Type = RepeatType.Any;
 
             return this.expect.SetupWithMoq();
         }
 
         public IExpect<T> AtLeastOnce()
         {
-            Type = RepeatType.AtLeastOnce;
+			this.Type = RepeatType.AtLeastOnce;
 
             return this.expect.SetupWithMoq();
         }
 
         public IExpect<T> Never()
         {
-            Type = RepeatType.Never;
+			this.Type = RepeatType.Never;
 
             return this.expect.SetupWithMoq();
         }
 
         public IExpect<T> Times(int count)
         {
-            Type = RepeatType.Exact;
-            ExactCount = count;
+			this.Type = RepeatType.Exact;
+			this.ExactCount = count;
 
             return this.expect.SetupWithMoq();
         }
