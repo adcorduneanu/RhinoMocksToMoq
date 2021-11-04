@@ -12,7 +12,7 @@
             this.calculator = calculator;
         }
 
-        public int Add(int? a, int b)
+        public int? Add(int? a, int b)
         {
             return this.calculator.Add(a.Value, b);
         }
